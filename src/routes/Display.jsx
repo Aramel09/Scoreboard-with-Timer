@@ -1,10 +1,9 @@
 import { useState } from "react";
-import CONFIG from "../config";
-import Buttons from "./Buttons/Buttons";
-import { HomeAwaySwitch, NumericalInput, Select } from "./Form";
-import Scoreboard from "./Scoreboard";
+import Buttons from "../components/Buttons/Buttons";
+import { HomeAwaySwitch } from "../components/Form";
+import Scoreboard from "../components/Scoreboard";
 
-export default function Main() {
+export default function Display() {
   const [buttons, setButtons] = useState([]);
   const [homeScore, setHomeScore] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
@@ -12,44 +11,13 @@ export default function Main() {
   const [periods, setPeriods] = useState(2);
   const [currentPeriod, setCurrentPeriod] = useState(1);
   const [minutes, setMinutes] = useState(15);
-
   return (
-    <main className="flex flex-col items-center gap-y-4 ">
-      <Select
-        id="sport-select"
-        options={CONFIG.map((sport) => sport.sport)}
-        handleChange={(e) => {
-          const selectedSport = CONFIG.find(
-            (sport) => sport.sport === e.target.value
-          );
-          setButtons(selectedSport.buttons);
-        }}
-      />
-
-      <NumericalInput
-        id="periods"
-        placeholder="Number of Periods"
-        defaultValue={periods}
-        handleBlur={(e) => {
-          setPeriods(e.target.value);
-        }}
-      />
-
-      <NumericalInput
-        id="time"
-        placeholder="Time per period? (minutes)"
-        defaultValue={minutes}
-        handleBlur={(e) => {
-          setMinutes(e.target.value);
-        }}
-      />
-
+    <>
       <HomeAwaySwitch
         handleToggle={() => {
           setHomeAway((prev) => (prev === "home" ? "away" : "home"));
         }}
       />
-
       <Buttons
         buttons={buttons}
         handleClick={(e) => {
@@ -60,13 +28,13 @@ export default function Main() {
           }
         }}
       />
-
       <Scoreboard
         homeScore={homeScore}
         awayScore={awayScore}
         minutes={minutes}
         currentPeriod={currentPeriod}
       />
-    </main>
+      ;
+    </>
   );
 }
