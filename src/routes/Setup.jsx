@@ -1,8 +1,14 @@
+import PropTypes from "prop-types";
 import Button from "../components/Buttons/Button";
 import { NumericalInput, Select } from "../components/Form";
 import CONFIG from "../config";
 
-export default function Setup(setButtons, setPeriods, setTimePerPeriod) {
+export default function Setup({
+  setButtons,
+  setPeriods,
+  setTimePerPeriod,
+  setGameOn,
+}) {
   return (
     <>
       <Select
@@ -31,13 +37,14 @@ export default function Setup(setButtons, setPeriods, setTimePerPeriod) {
           setTimePerPeriod(e.target.value);
         }}
       />
-      <Button
-        colorClass="bg-green-500"
-        text="Go!"
-        handleClick={() => {
-          console.log("Go!");
-        }}
-      />
+      <Button colorClass="bg-green-500" text="Go!" handleClick={setGameOn} />
     </>
   );
 }
+
+Setup.propTypes = {
+  setButtons: PropTypes.func.isRequired,
+  setPeriods: PropTypes.func.isRequired,
+  setTimePerPeriod: PropTypes.func.isRequired,
+  setGameOn: PropTypes.func.isRequired,
+};
