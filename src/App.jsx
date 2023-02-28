@@ -15,7 +15,11 @@ function App() {
       </h1>
       <main className=" flex flex-col items-center gap-y-4">
         {gameOn ? (
-          <Display periods={periods} timePerPeriod={timePerPeriod} />
+          <Display
+            buttons={buttons}
+            periods={periods}
+            timePerPeriod={timePerPeriod}
+          />
         ) : (
           <Setup
             setGameOn={setGameOn}
