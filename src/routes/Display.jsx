@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Buttons/Button";
 import Buttons from "../components/Buttons/Buttons";
 import { HomeAwaySwitch } from "../components/Form";
@@ -14,6 +14,19 @@ export default function Display({ buttons, periods, timePerPeriod }) {
     // Seconds to minutes
     timePerPeriod * 60
   );
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+
+  useEffect(() => {
+    if (isTimerRunning && timeRemaining > 0) {
+      const intervalid = setInterval(() => {
+        setTimeRemaining((prev) => prev - 1);
+      }, 1000);
+
+      return () => {
+        clearInterval(intervalid);
+      };
+    }
+  }, [isTimerRunning, timeRemaining]);
 
   return (
     <>
@@ -37,36 +50,35 @@ export default function Display({ buttons, periods, timePerPeriod }) {
         awayScore={awayScore}
         timeRemaining={timeRemaining}
         currentPeriod={currentPeriod}
-        timePerPeriod={timePerPeriod}
-        periods={periods}
       />
       <div className="flex gap-x-8">
         <Button
           colorClass="bg-green-500"
           text="Start"
           handleClick={() => {
-            console.log("Start");
+            setIsTimerRunning((prev) => !prev);
           }}
         />
         <Button
           colorClass="bg-orange-500"
           text="Stop"
           handleClick={() => {
-            console.log("Stop");
+            setIsTimerRunning((prev) => !prev);
           }}
         />
         <Button
           colorClass="bg-yellow-500"
           text="Next Period"
           handleClick={() => {
-            console.log("Next Period");
+            setCurrentPeriod((prev) => (prev < periods ? prev + 1 : prev));
+            setTimeRemaining(timePerPeriod * 60);
           }}
         />
         <Button
           colorClass="bg-red-500"
           text="Reset Board"
           handleClick={() => {
-            console.log("Reset Board");
+            window.location.reload(false);
           }}
         />
       </div>
