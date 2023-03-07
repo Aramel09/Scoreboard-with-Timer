@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`renders scoreboard 1`] = `
+exports[`initial render 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
@@ -53,7 +53,7 @@ exports[`renders scoreboard 1`] = `
               class="text-4xl"
               data-testid="time"
             >
-              NaN:NaN
+              0:01
             </p>
           </div>
         </div>
@@ -124,7 +124,7 @@ exports[`renders scoreboard 1`] = `
             class="text-4xl"
             data-testid="time"
           >
-            NaN:NaN
+            0:01
           </p>
         </div>
       </div>
